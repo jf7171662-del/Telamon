@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Galería de Diseños 3D</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+    .formulario {
+      background: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+    .item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .item p {
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Mis Diseños 3D</h1>
+    <p>Sube tus fotos y textos</p>
+  </header>
+
+  <section class="formulario">
+    <h2>Agregar nuevo diseño</h2>
+    <input type="file" id="imagen" accept="image/*"><br><br>
+    <textarea id="descripcion" placeholder="Escribe una descripción..." rows="3" cols="40"></textarea><br><br>
+    <button onclick="agregarItem()">Agregar a la galería</button>
+  </section>
+
+  <section class="galeria" id="galeria">
+    <!-- Aquí se mostrarán los diseños -->
+  </section>
+
+  <script>
+    function agregarItem() {
+      const galeria = document.getElementById("galeria");
+      const archivo = document.getElementById("imagen").files[0];
+      const descripcion = document.getElementById("descripcion").value;
+
+      if (archivo) {
+        const lector = new FileReader();
+        lector.onload = function(e) {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+            <img src="${e.target.result}" alt="Diseño 3D">
+            <p>${descripcion}</p>
+          `;
+          galeria.appendChild(div);
+        };
+        lector.readAsDataURL(archivo);
+      }
+    }
+  </script>
+</body>
+</html>
